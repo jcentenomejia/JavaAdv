@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:p="http://www.springframework.org/schema/p" 
+   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+ 	<!-- 
+   <bean name="dao"
+     class="fr.epita.iam.services.IdentityJDBCDAO" >
+   	  <property name="dataSource" ref="dataSourceBean"/>
+   </bean> 
+   
+   <bean id="dataSourceBean"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+        <property name="url" value="jdbc:derby:memory:IAM;create=true" />
+        <property name="username" value="jorge" />
+        <property name="password" value="123" />
+    </bean>
+    -->
+    
+    <bean id="propertyConf"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="test.properties" />
+	</bean>
+	
+	<bean id="dao" name="dao" class="fr.epita.iamcore2.services.JdbcDAO" />
+	
+    <!-- todo : use SpringPropertiesUtil Something to load the placeholders values below: -->
+	<bean id="dataSourceBean"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver.name}" />
+		<property name="url" value="${jdbc.connection.string}" />
+		<property name="username" value="${jdbc.connection.user}" />
+		<property name="password" value="${jdbc.connection.pwd}" />
+	</bean>
+</beans>
