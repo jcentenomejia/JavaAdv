@@ -1,11 +1,34 @@
 package fr.epita.iamcore2.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="IDENTITIES")
 public class Identity {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="IDENTITY_ID")
 	private String uid;
+	
+	@Column(name="IDENTITY_DISPLAYNAME")
 	private String displayname;
+	
+	@Column(name="IDENTITY_EMAIL")
 	private String email;
+	
+	@Column(name="IDENTITY_BIRTHDATE")
 	private String birthDate;
+	
+	@Column(name="PASSWORD")
 	private String password;
+	
+	@Column(name="USER_TYPE")
 	private String userType;
 	
 	public Identity(String uid, String displayname, String email, String birthDate, String password, String userType) {
