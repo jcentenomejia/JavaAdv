@@ -25,7 +25,7 @@ public class JdbcDAO {
 	@Named("dataSourceBean")
 	private DataSource ds;
 	
-	public JdbcDAO() throws SQLException{
+	private JdbcDAO() throws SQLException{
 	}
 	
 	//Returns a list of Identities in Database
@@ -39,7 +39,7 @@ public class JdbcDAO {
 		ResultSet rs = statement.executeQuery();
 		
 		while (rs.next()) {
-			int uid = rs.getInt("IDENTITY_ID");
+			String uid = String.valueOf(rs.getString("IDENTITY_ID"));
 			String displayName = rs.getString("IDENTITY_DISPLAYNAME");
 			String email = rs.getString("IDENTITY_EMAIL");
 			String birthDate = rs.getString("IDENTITY_BIRTHDATE");

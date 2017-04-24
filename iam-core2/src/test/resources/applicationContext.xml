@@ -26,6 +26,7 @@
 	</bean>
 	
 	<bean id="dao" name="dao" class="fr.epita.iamcore2.services.JdbcDAO" />
+	<bean id="daoHibernate" name="daoHibernate" class="fr.epita.iamcore2.services.HibernateDAO" />
 	
     <!-- todo : use SpringPropertiesUtil Something to load the placeholders values below: -->
 	<bean id="dataSourceBean"

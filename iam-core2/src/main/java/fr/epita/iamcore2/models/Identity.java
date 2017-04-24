@@ -14,6 +14,9 @@ public class Identity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="IDENTITY_ID")
+	private long id;
+	
+	@Column(name="IDENTITY_UID")
 	private String uid;
 	
 	@Column(name="IDENTITY_DISPLAYNAME")
@@ -30,6 +33,12 @@ public class Identity {
 	
 	@Column(name="USER_TYPE")
 	private String userType;
+	
+	
+	//Default
+	public Identity(){
+		
+	}
 	
 	public Identity(String uid, String displayname, String email, String birthDate, String password, String userType) {
 		
@@ -91,7 +100,11 @@ public class Identity {
 	
 	@Override
 	public String toString() {
-		return "Identity [uid=" + uid + ", displayname=" + displayname + ", email=" + email + " bithdate: " + birthDate + "]";
+		return "Identity [uid=" + uid + ", displayname=" + displayname + ", email=" + email + ", bithdate: " + birthDate + "]";
+	}
+	
+	public long getId() {
+		return id;
 	}
 }
 

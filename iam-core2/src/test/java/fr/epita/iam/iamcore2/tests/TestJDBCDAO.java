@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.inject.Inject;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
@@ -13,14 +15,22 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.epita.iamcore2.models.Identity;
 import fr.epita.iamcore2.services.Configuration;
 import fr.epita.iamcore2.services.JdbcDAO;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"/applicationContext.xml"})
 public class TestJDBCDAO {
 	
 	private static final Logger LOGGER = LogManager.getLogger(TestJDBCDAO.class);
+	
+	@Inject 
+	JdbcDAO dao;
 	
 	@BeforeClass
 	public static void globalSetup() throws SQLException, IOException{
@@ -56,7 +66,7 @@ public class TestJDBCDAO {
 	
 	@Test
 	public void basicTest() throws SQLException{
-		JdbcDAO dao = new JdbcDAO();
+		
 		dao.write(new Identity(null, "Jorge", "jorge@gmail.com", "1989-12-18", "123", "admin"));
 		System.out.println(dao.readAllIdentities());
 		

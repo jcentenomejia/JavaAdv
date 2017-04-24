@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import fr.epita.iamcore2.services.JdbcDAO;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/applicationContext.xml"})
 
@@ -18,8 +20,12 @@ public class TestSource {
 	@Inject 
 	DataSource ds;
 	
+	@Inject 
+	JdbcDAO dao;
+	
 	@Test
 	public void Test() throws SQLException{
-		ds.getConnection();
+		//ds.getConnection();
+		dao.readAllIdentities();
 	}
 }

@@ -1,18 +1,16 @@
 package fr.epita.iam.iamcore2.tests;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,33 +27,24 @@ public class TestHibernate {
 	@Inject
 	SessionFactory sFactory;
 	
-	@Inject
-	JdbcDAO dao;	
-	
-	@Inject
-	@Named("dataSourceBean")
-	DataSource ds;
-	
 	private static final Logger LOGGER = LogManager.getLogger(TestSpring.class);
 	
 	@Test
-	public void testHibernate() throws SQLException{
+	public void testHQL() throws SQLException{
 		
-		List<Identity> identitiesListFromJdbc = dao.readAllIdentities();
-
-		LOGGER.info("before : {} ", identitiesListFromJdbc);
-		int originalSize = identitiesListFromJdbc.size();
-		
+		String hqlQuery = "from Identity as identity where identity.displayname = :displayname";
 		Session session = sFactory.openSession();
-		Identity identity = new Identity("1234", "jcenteno", "jcenteno@gmail.com","1989-12-18","123","admin");
+		Transaction tx = session.beginTransaction();
 		
-		session.saveOrUpdate(identity);
+		String user = "jcenteno";
+		session.save(new Identity("123",user, "jcenteno@gmail.com","1989-12-18","123","admin"));
+		tx.commit();
 		
-		identitiesListFromJdbc = dao.readAllIdentities();
-		LOGGER.info("after : {}", identitiesListFromJdbc);
+		Query query = session.createQuery(hqlQuery);
+		query.setParameter("displayname", user);
+		List<Identity> results = query.list();
 		
-		Assert.assertEquals(dao.readAllIdentities().size(), originalSize + 1);
-		
+		Assert.assertTrue(results.isEmpty());
 	}
 	
 }
