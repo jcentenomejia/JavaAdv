@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans" 
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-   xmlns:p="http://www.springframework.org/schema/p" 
-   xsi:schemaLocation="http://www.springframework.org/schema/beans 
-       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
- 	<!-- 
-   <bean name="dao"
-     class="fr.epita.iam.services.IdentityJDBCDAO" >
-   	  <property name="dataSource" ref="dataSourceBean"/>
-   </bean> 
-   
-   <bean id="dataSourceBean"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
-        <property name="url" value="jdbc:derby:memory:IAM;create=true" />
-        <property name="username" value="jorge" />
-        <property name="password" value="123" />
-    </bean>
-    -->
-    
-    <bean id="propertyConf"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<context:annotation-config />
+
+    <bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="test.properties" />
+
+		<property name="location">
+			<value>db.properties</value>
+		</property>
 	</bean>
 	
-	<bean id="dao" name="dao" class="fr.epita.iamcore2.services.JdbcDAO" />
-	<bean id="daoHibernate" name="daoHibernate" class="fr.epita.iamcore2.services.HibernateDAO" />
+	<bean id="daoHibernate" name="daoHibernate" class="fr.epita.iamcore.services.IdentityDAO" />
+	<bean id="daoAddress" name="daoAddress" class="fr.epita.iamcore.services.AddressDAO" />
 	
     <!-- todo : use SpringPropertiesUtil Something to load the placeholders values below: -->
 	<bean id="dataSourceBean"
@@ -40,7 +33,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceBean" />
-		<property name="packagesToScan" value="fr.epita.iamcore2.models" />
+		<property name="packagesToScan" value="fr.epita.iamcore.models" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</prop>

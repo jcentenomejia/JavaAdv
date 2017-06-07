@@ -1,4 +1,4 @@
-package fr.epita.iam.iamcore2.tests;
+package fr.epita.iam.iamcore.tests;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -17,8 +17,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import fr.epita.iamcore2.models.Identity;
-import fr.epita.iamcore2.services.JdbcDAO;
+import fr.epita.iamcore.models.Identity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/applicationContext.xml"})
@@ -27,7 +26,7 @@ public class TestHibernate {
 	@Inject
 	SessionFactory sFactory;
 	
-	private static final Logger LOGGER = LogManager.getLogger(TestSpring.class);
+	private static final Logger LOGGER = LogManager.getLogger(TestHibernate.class);
 	
 	@Test
 	public void testHQL() throws SQLException{
@@ -44,7 +43,7 @@ public class TestHibernate {
 		query.setParameter("displayname", user);
 		List<Identity> results = query.list();
 		
-		Assert.assertTrue(results.isEmpty());
+		Assert.assertTrue(!results.isEmpty());
 	}
 	
 }

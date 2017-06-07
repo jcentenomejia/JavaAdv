@@ -1,4 +1,4 @@
-package fr.epita.iamcore2.models;
+package fr.epita.iamcore.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="IDENTITIES")
 public class Identity {
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="IDENTITY_ID")
@@ -34,10 +34,8 @@ public class Identity {
 	@Column(name="USER_TYPE")
 	private String userType;
 	
-	
-	//Default
 	public Identity(){
-		
+		//Default
 	}
 	
 	public Identity(String uid, String displayname, String email, String birthDate, String password, String userType) {
@@ -106,5 +104,8 @@ public class Identity {
 	public long getId() {
 		return id;
 	}
+	
+	public void setId(long id){
+		this.id = id;
+	}
 }
-

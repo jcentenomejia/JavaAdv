@@ -1,4 +1,4 @@
-package fr.epita.iamcore2.services;
+package fr.epita.iamcore.services;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,16 +12,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import fr.epita.iamcore2.models.Identity;
+import fr.epita.iamcore.models.Identity;
 
-public class HibernateDAO implements Dao<Identity>{
+public class IdentityDAO implements Dao<Identity>{
 	
-	private static final Logger LOGGER = LogManager.getLogger(HibernateDAO.class);
+	private static final Logger LOGGER = LogManager.getLogger(IdentityDAO.class);
 
 	@Inject
 	SessionFactory sFactory;
 	
-	private HibernateDAO() throws SQLException {
+	private IdentityDAO() throws SQLException {
 	}
 	
 	public void write(Identity identity) throws SQLException{
@@ -51,16 +51,27 @@ public class HibernateDAO implements Dao<Identity>{
 		session.close();
 	}
 	
-	public List<Identity> search(Identity identity) throws SQLException {
-		LOGGER.info("retrieving identity : {} ", identity);
+	public List<Identity> search(String searchString) throws SQLException {
+		LOGGER.info("Searching identity containing: {}", searchString);
 		Session session = sFactory.openSession();
-		//String queryString = "from Identity as identity";
-		String queryString = "from Identity as identity where identity.displayname like :displayname";
+		String queryString = "from Identity as identity where identity.displayname like :criteria or "
+				+ "identity.email like :criteria or identity.birthDate like :criteria";
 		Query query = session.createQuery(queryString);
-		query.setParameter("displayname", "%" + identity.getDisplayname()+"%");
+		query.setParameter("criteria", "%" + searchString+"%");
 		List<Identity> identityList = query.list();
 		session.close();
 		return identityList;
 		
+	}
+	
+	public Identity getById(Long id) throws SQLException {
+		LOGGER.info("retrieving identity with id : {} ", id);
+		Session session = sFactory.openSession();
+		String queryString = "from Identity as identity where identity.id = :id";
+		Query query = session.createQuery(queryString);
+		query.setParameter("id", id);
+		List<Identity> identities = query.list();
+		session.close();
+		return identities.get(0);
 	}
 }

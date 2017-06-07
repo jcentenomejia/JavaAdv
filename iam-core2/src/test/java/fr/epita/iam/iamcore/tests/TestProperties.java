@@ -1,4 +1,4 @@
-package fr.epita.iam.iamcore2.tests;
+package fr.epita.iam.iamcore.tests;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
-import fr.epita.iam.iamcore2.tests.TestProperties;
+import fr.epita.iam.iamcore.tests.TestProperties;
 
 public class TestProperties {
 
