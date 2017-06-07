@@ -18,12 +18,15 @@ public class AddressDAO implements Dao<Address>{
 
 	private static final Logger LOGGER = LogManager.getLogger(AddressDAO.class);
 	
+	//Injecting session variable containing DB connection
 	@Inject
 	SessionFactory sFactory;
 	
 	private AddressDAO(){
+		//Default constructor
 	}
 	
+	//Insert Address into DB
 	public void write(Address address) throws SQLException{
 		LOGGER.info("adding address : {} ", address);
 		Session session = sFactory.openSession();
@@ -33,6 +36,7 @@ public class AddressDAO implements Dao<Address>{
 		session.close();
 	}
 	
+	//Update Address in DB
 	public void update(Address address) throws SQLException {
 		LOGGER.info("updating address : {} ", address);
 		Session session = sFactory.openSession();
@@ -42,6 +46,7 @@ public class AddressDAO implements Dao<Address>{
 		session.close();
 	}
 	
+	//Delete Address from DB
 	public void delete(Address address) throws SQLException {
 		LOGGER.info("deleting address : {} ", address);
 		Session session = sFactory.openSession();
@@ -51,6 +56,7 @@ public class AddressDAO implements Dao<Address>{
 		session.close();
 	}
 	
+	//Searching Address by criteria
 	public List<Address> search(String searchString) throws SQLException {
 		LOGGER.info("retrieving address with search criteria : {} ", searchString);
 		Session session = sFactory.openSession();
@@ -63,6 +69,7 @@ public class AddressDAO implements Dao<Address>{
 		
 	}
 	
+	//Getting Address by id
 	public Address getById(Long id) throws SQLException {
 		LOGGER.info("retrieving address with id : {} ", id);
 		Session session = sFactory.openSession();

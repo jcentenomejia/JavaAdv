@@ -31,12 +31,14 @@ public class UpdateOrDeleteServlet extends HttpServlet{
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		
 		String permission = req.getSession().getAttribute("userType").toString();
-		
+		//first we check the user's permission 
+		//if he is not admin he will be sent back to the search page with an error message
 		if(!"admin".equals(permission)){
 			req.setAttribute("message", "You have no permissions to update or delete.");
 			req.setAttribute("message_color", "red");
 			req.getRequestDispatcher("searchIdentity.jsp").forward(req, resp);
 		}else{
+			//if he has permissions do something depending on the action received(delete or update)
 			String actionReceived = req.getParameter("action");
 			actionToDo(req, resp, actionReceived);
 		}
@@ -57,13 +59,13 @@ public class UpdateOrDeleteServlet extends HttpServlet{
 			} catch (SQLException e) {
 				LOGGER.error("Error retrieving identity with id: {} , {}", id,e);
 			}
-					
+			//if request is update, then redirect to the update jsp with the identity to modify
 			switch(actionReceived){
 			case "update":
 				req.setAttribute("identity", identity);
 				req.getRequestDispatcher("modifyIdentity.jsp").forward(req, resp);
 				break;
-						
+			//if action is delete, delete it 
 			case "delete":
 				try {
 					dao.delete(identity);

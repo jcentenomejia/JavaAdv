@@ -20,7 +20,7 @@ import fr.epita.iamcore.services.Dao;
 
 @WebServlet(name="AuthenticationServlet", urlPatterns={"/authenticate"})
 public class AuthenticationServlet extends HttpServlet{
-
+	//Authentication servlet gets parameters from web form
 	@Autowired
 	Dao<Identity> daoHibernate;
 	
@@ -42,13 +42,13 @@ public class AuthenticationServlet extends HttpServlet{
 		LOGGER.info("tried to authenticate with this login {}", login);
 		
 		Identity identity = null;
-		
+		//Using authentication service
 		try {
 			identity = Authenticate.getInstance().authenticate(login, password);
 		} catch (SQLException e) {
 			LOGGER.error("Error creating user! {}",e);
 		}
-		
+		//if authentication succeeded go to welcome page else go to index page and print error message
 		if(identity != null){
 			req.getSession().setAttribute("userName",identity.getDisplayname());
 			req.getSession().setAttribute("userID",identity.getId());

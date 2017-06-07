@@ -38,6 +38,7 @@ public class Identity {
 		//Default
 	}
 	
+	//constructor using fields
 	public Identity(String uid, String displayname, String email, String birthDate, String password, String userType) {
 		
 		this.uid = uid;
@@ -48,6 +49,8 @@ public class Identity {
 		this.userType = userType;
 	}
 
+	//getters and setters for fields
+	
 	public String getUid() {
 		return uid;
 	}

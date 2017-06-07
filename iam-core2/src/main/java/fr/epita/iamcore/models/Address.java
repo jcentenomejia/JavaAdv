@@ -33,6 +33,11 @@ public class Address {
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Identity identity;
 	
+	public Address() {
+		//Default constructor
+	}
+	
+	//constructor using fields 
 	public Address(long addressId, String addressDesc, String city, String zipcode, String country, Identity identity) {
 		
 		this.addressId = addressId;
@@ -43,10 +48,8 @@ public class Address {
 		this.identity = identity;
 	}
 	
-	public Address() {
-		//Default constructor
-	}
-		
+	//getters and setters for fields
+	
 	public long getAddressId() {
 		return addressId;
 	}

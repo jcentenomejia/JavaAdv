@@ -29,7 +29,7 @@ public class UpdateServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-		
+		//create new identity from parameters 
 		long uid = Long.parseLong(request.getParameter("userID"));
 		String username = request.getParameter("userName");
 		String email = request.getParameter("email");
@@ -44,7 +44,7 @@ public class UpdateServlet extends HttpServlet {
 		identity.setEmail(email);
 		identity.setPassword(password);
 		identity.setUserType(type);
-		
+		//update identity using DAO
 		try {
 			dao.update(identity);
 			request.setAttribute("message", "Identity updated sucessfully.");

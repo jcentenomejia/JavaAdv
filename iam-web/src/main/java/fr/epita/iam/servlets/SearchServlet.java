@@ -20,6 +20,7 @@ import fr.epita.iamcore.services.Dao;
 
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
+	//Search servlet
 	private static final long serialVersionUID = 1L;
     
 	private static final Logger LOGGER = LogManager.getLogger(SearchServlet.class);
@@ -29,7 +30,8 @@ public class SearchServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-		
+		//The search method will check if the username, email or birthday contain the criteria given
+		//returning a list of identities to display
 		String searchString = request.getParameter("searchCriteria");
 		
 		try {

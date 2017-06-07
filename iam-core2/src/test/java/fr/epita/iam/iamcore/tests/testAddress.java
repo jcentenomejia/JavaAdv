@@ -25,14 +25,14 @@ public class testAddress {
 	
 	@Test
 	public void testDao() throws SQLException{
-			
+		//Creating one Identity
 		Identity identity = new Identity();
 		identity.setDisplayname("jorge");
 		identity.setUserType("admin");
 		identity.setBirthDate("1989-12-18");
 		identity.setEmail("jcenteno@gmail.com");
 		identity.setPassword("123");
-		
+		//Creating 2 addresses
 		Address address = new Address();
 		address.setAddressDesc("74 cours de vincennes");
 		address.setCity("Paris");
@@ -46,7 +46,7 @@ public class testAddress {
 		address2.setZipcode("74000");
 		address2.setCountry("France");
 		address2.setIdentity(identity);
-		
+		//Writing the new addresses will also insert the identity
 		dao.write(address);
 		dao.search(address.getAddressDesc());
 		

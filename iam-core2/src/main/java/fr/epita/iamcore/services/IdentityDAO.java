@@ -18,12 +18,15 @@ public class IdentityDAO implements Dao<Identity>{
 	
 	private static final Logger LOGGER = LogManager.getLogger(IdentityDAO.class);
 
+	//Injecting session variable containing DB connection
 	@Inject
 	SessionFactory sFactory;
 	
 	private IdentityDAO() throws SQLException {
+		//Default constructor
 	}
 	
+	//Insert Identity into DB
 	public void write(Identity identity) throws SQLException{
 		LOGGER.info("adding identity : {} ", identity);
 		Session session = sFactory.openSession();
@@ -33,6 +36,7 @@ public class IdentityDAO implements Dao<Identity>{
 		session.close();
 	}
 	
+	//Update Identity into DB
 	public void update(Identity identity) throws SQLException {
 		LOGGER.info("updating identity : {} ", identity);
 		Session session = sFactory.openSession();
@@ -42,6 +46,7 @@ public class IdentityDAO implements Dao<Identity>{
 		session.close();
 	}
 	
+	//Delete Identity into DB
 	public void delete(Identity identity) throws SQLException {
 		LOGGER.info("deleting identity : {} ", identity);
 		Session session = sFactory.openSession();
@@ -51,6 +56,7 @@ public class IdentityDAO implements Dao<Identity>{
 		session.close();
 	}
 	
+	//Search Identities by criteria
 	public List<Identity> search(String searchString) throws SQLException {
 		LOGGER.info("Searching identity containing: {}", searchString);
 		Session session = sFactory.openSession();
@@ -64,6 +70,7 @@ public class IdentityDAO implements Dao<Identity>{
 		
 	}
 	
+	//Search Identity by ID
 	public Identity getById(Long id) throws SQLException {
 		LOGGER.info("retrieving identity with id : {} ", id);
 		Session session = sFactory.openSession();

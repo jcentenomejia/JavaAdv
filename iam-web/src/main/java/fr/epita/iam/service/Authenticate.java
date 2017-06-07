@@ -25,20 +25,21 @@ public class Authenticate {
 	protected Authenticate(){
 		//default constructor
 	}
-	
+	//Singleton so the authentication takes place only once
 	public static Authenticate getInstance(){
 		if(instance == null){
 			instance = new Authenticate();
 		}
 		return instance;
 	}
-	
+	//Authenticating
 	public Identity authenticate(String user, String password) throws SQLException{
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		
 		LOGGER.info("authenticating with username: {} ", user);
 		
 		Session session = sFactory.openSession();
+		//If user name and password belong to one user return identity, else return null
 		String queryString = "from Identity as identity where identity.password = :password and identity.displayname = :displayname";
 		Query query = session.createQuery(queryString);
 		query.setParameter("displayname", user);

@@ -20,6 +20,7 @@ import fr.epita.iamcore.services.Dao;
 
 @WebServlet("/CreationServlet")
 public class CreationServlet extends HttpServlet {
+	//Creation servlet which gets parameters from newIdentity.jsp 
 	private static final long serialVersionUID = 1L;
     
 	private static final Logger LOGGER = LogManager.getLogger(CreationServlet.class);
@@ -30,7 +31,7 @@ public class CreationServlet extends HttpServlet {
     public CreationServlet() {
         super();
     }	
-    
+    //Get method to check permission of the user, if allowed redirect him to the corresponding jsp
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String permission = request.getSession().getAttribute("userType").toString();
     	
@@ -42,7 +43,7 @@ public class CreationServlet extends HttpServlet {
     		response.sendRedirect("newIdentity.jsp");
     	}
     }
-    
+    //Post method to create the new identity
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		
@@ -54,11 +55,11 @@ public class CreationServlet extends HttpServlet {
 			
 		Identity identity = new Identity();
 		identity.setBirthDate(date);
-		identity.setDisplayname(username);
-		identity.setEmail(email);
-		identity.setPassword(pass);
+		identity.setDisplayname(username.trim());
+		identity.setEmail(email.trim());
+		identity.setPassword(pass.trim());
 		identity.setUserType(type);
-			
+		//Create new identity from parameters 
 		try {
 			dao.write(identity);
 			request.setAttribute("message", "New identity created successfully.");
