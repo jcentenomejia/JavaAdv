@@ -3,9 +3,8 @@ import java.sql.SQLException;
 
 import javax.inject.Inject;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,18 +20,17 @@ public class testAddress {
 	@Inject
 	Dao<Address> dao;
 	
-	private static final Logger LOGGER = LogManager.getLogger(testAddress.class);
 	
 	@Test
 	public void testDao() throws SQLException{
-		//Creating one Identity
+		//Creating one Identity with 2 addresses
 		Identity identity = new Identity();
-		identity.setDisplayname("jorge");
-		identity.setUserType("admin");
+		identity.setDisplayname("lero");
+		identity.setUserType("user");
 		identity.setBirthDate("1989-12-18");
 		identity.setEmail("jcenteno@gmail.com");
 		identity.setPassword("123");
-		//Creating 2 addresses
+
 		Address address = new Address();
 		address.setAddressDesc("74 cours de vincennes");
 		address.setCity("Paris");
@@ -46,14 +44,15 @@ public class testAddress {
 		address2.setZipcode("74000");
 		address2.setCountry("France");
 		address2.setIdentity(identity);
+		
 		//Writing the new addresses will also insert the identity
 		dao.write(address);
+		Assert.assertTrue(address!=null);
 		dao.search(address.getAddressDesc());
 		
 		dao.write(address2);
+		Assert.assertTrue(address2!=null);
 		dao.search(address2.getAddressDesc());
 		
-		LOGGER.info("New address: {} ", address);
-		LOGGER.info("New address: {} ", address2);
 	}
 }
